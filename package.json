@@ -1,0 +1,55 @@
+{
+  "name": "@kaoruisaac/pedelec-node",
+  "version": "0.1.0",
+  "description": "Node/TypeScript SDK for the Pedelec agent runtime: one package with the Rust IPC worker, pedelec-agent and pedelec-cli for macOS arm64, Windows x64 and Linux x64 (glibc).",
+  "license": "MIT",
+  "author": "Isaac Lin",
+  "repository": { "type": "git", "url": "git+https://github.com/kaoruisaac/pedelec-node.git" },
+  "homepage": "https://github.com/kaoruisaac/pedelec-node#readme",
+  "bugs": { "url": "https://github.com/kaoruisaac/pedelec-node/issues" },
+  "keywords": ["agent", "codex", "claude", "opencode", "cursor", "sdk", "tool-trace"],
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist/",
+    "bin/manifest.json",
+    "bin/darwin-arm64/",
+    "bin/win32-x64/",
+    "bin/linux-x64-gnu/",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "README.md"
+  ],
+  "os": ["darwin", "win32", "linux"],
+  "cpu": ["arm64", "x64"],
+  "engines": { "node": ">=24.22.1 <25" },
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "version": "node scripts/version.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "build": "node scripts/build.mjs",
+    "build:rust": "cargo build --release --locked -p pedelec-ipc-worker -p pedelec-agent -p pedelec-cli --manifest-path rust/Cargo.toml",
+    "build:rust:dev": "cargo build --locked -p pedelec-ipc-worker -p pedelec-agent -p pedelec-cli --manifest-path rust/Cargo.toml",
+    "stage:native": "node scripts/stage-native.mjs",
+    "manifest": "node scripts/write-manifest.mjs",
+    "test": "vitest run --config test/vitest.config.ts",
+    "test:rust": "cargo test --locked --manifest-path rust/Cargo.toml --workspace",
+    "check:boundary": "node scripts/check-pedelec-sdk-boundary.mjs",
+    "check:package": "node scripts/verify-package.mjs",
+    "prepack": "node scripts/verify-package.mjs --prepack"
+  },
+  "dependencies": {
+    "ajv": "8.20.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "7.0.2",
+    "vitest": "5.1.0"
+  }
+}

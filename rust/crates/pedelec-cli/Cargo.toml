@@ -1,0 +1,17 @@
+[package]
+name = "pedelec-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "pedelec_cli"
+path = "src/lib.rs"
+
+[[bin]]
+name = "pedelec-cli"
+path = "src/main.rs"
+
+[dependencies]
+serde_json.workspace = true
+uuid.workspace = true

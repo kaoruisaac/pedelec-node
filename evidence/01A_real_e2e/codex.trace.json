@@ -1,0 +1,638 @@
+[
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:35.893Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:c945664b5084508a2b42041b95f23811",
+    "turnId": "scenario",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 1,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-f3cc4bad-161c-4540-8566-bb59624250b1",
+    "status": "running",
+    "input": {
+      "command": "/bin/zsh -lc 'echo trace-ok FAKE_TRACE_CANARY=sk-fake-canary-0000'",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:35.894Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:c945664b5084508a2b42041b95f23811",
+    "turnId": "scenario",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 2,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-f3cc4bad-161c-4540-8566-bb59624250b1",
+    "status": "completed",
+    "exitCode": 0,
+    "input": {
+      "command": "/bin/zsh -lc 'echo trace-ok FAKE_TRACE_CANARY=sk-fake-canary-0000'",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "output": {
+      "combinedStreams": true,
+      "output": "trace-ok FAKE_TRACE_CANARY=sk-fake-canary-0000\n"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:38.141Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:5f85b148cc12f1bf5066dc7865d5802b",
+    "turnId": "scenario",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 3,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-d49cb441-a942-4eea-bf8d-650262c32850",
+    "status": "running",
+    "input": {
+      "command": "/bin/zsh -lc 'ls /definitely-missing-pedelec-dir'",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:38.143Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:5f85b148cc12f1bf5066dc7865d5802b",
+    "turnId": "scenario",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 4,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-d49cb441-a942-4eea-bf8d-650262c32850",
+    "status": "failed",
+    "exitCode": 1,
+    "input": {
+      "command": "/bin/zsh -lc 'ls /definitely-missing-pedelec-dir'",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "output": {
+      "combinedStreams": true,
+      "output": "ls: /definitely-missing-pedelec-dir: No such file or directory\n"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:46.556Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:b1836810467694e170c0b2e86736688f",
+    "turnId": "scenario",
+    "toolName": "remote.read_file",
+    "toolKind": "mcp",
+    "sequence": 5,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-ca6994ea-7e2e-4c24-8712-a51894143cdb",
+    "status": "running",
+    "input": {
+      "arguments": {
+        "path": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT/note.txt"
+      },
+      "server": "codex_apps",
+      "tool": "remote.read_file"
+    },
+    "unavailable": [
+      "exitCode"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:47.143Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:b1836810467694e170c0b2e86736688f",
+    "turnId": "scenario",
+    "toolName": "remote.read_file",
+    "toolKind": "mcp",
+    "sequence": 6,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-ca6994ea-7e2e-4c24-8712-a51894143cdb",
+    "status": "failed",
+    "input": {
+      "arguments": {
+        "path": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT/note.txt"
+      },
+      "server": "codex_apps",
+      "tool": "remote.read_file"
+    },
+    "output": {
+      "error": null,
+      "result": {
+        "_meta": null,
+        "content": [
+          {
+            "text": "2 devices are online; pass deviceId (see list_devices).",
+            "type": "text"
+          }
+        ],
+        "structuredContent": {
+          "error_code": "INVALID_ARGUMENT"
+        }
+      }
+    },
+    "unavailable": [
+      "exitCode"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:50.917Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:a6d51239239c89b646c76a40b7ec336d",
+    "turnId": "scenario",
+    "toolName": "remote.start_search",
+    "toolKind": "mcp",
+    "sequence": 7,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-f76bfbec-cd74-4464-aa5d-a0a31adb0809",
+    "status": "running",
+    "input": {
+      "arguments": {
+        "path": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT",
+        "pattern": "hello",
+        "searchType": "content"
+      },
+      "server": "codex_apps",
+      "tool": "remote.start_search"
+    },
+    "unavailable": [
+      "exitCode"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:51.612Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:a6d51239239c89b646c76a40b7ec336d",
+    "turnId": "scenario",
+    "toolName": "remote.start_search",
+    "toolKind": "mcp",
+    "sequence": 8,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-f76bfbec-cd74-4464-aa5d-a0a31adb0809",
+    "status": "failed",
+    "input": {
+      "arguments": {
+        "path": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT",
+        "pattern": "hello",
+        "searchType": "content"
+      },
+      "server": "codex_apps",
+      "tool": "remote.start_search"
+    },
+    "output": {
+      "error": null,
+      "result": {
+        "_meta": null,
+        "content": [
+          {
+            "text": "2 devices are online; pass deviceId (see list_devices).",
+            "type": "text"
+          }
+        ],
+        "structuredContent": {
+          "error_code": "INVALID_ARGUMENT"
+        }
+      }
+    },
+    "unavailable": [
+      "exitCode"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:53.993Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:43ff30e031953abd7be8a8a03628fe3f",
+    "turnId": "scenario",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 9,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-6599d312-24e8-4de1-9333-2be42360ce38",
+    "hostInvocations": [
+      {
+        "subcommand": "tool-spec",
+        "toolName": "traceProbe"
+      }
+    ],
+    "status": "running",
+    "input": {
+      "command": "/bin/zsh -lc 'pedelec-cli --thread-id 7ca511de-1477-4c13-951f-12c285a0eb3d tool-spec traceProbe'",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:53.994Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:43ff30e031953abd7be8a8a03628fe3f",
+    "turnId": "scenario",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 10,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-6599d312-24e8-4de1-9333-2be42360ce38",
+    "hostInvocations": [
+      {
+        "subcommand": "tool-spec",
+        "toolName": "traceProbe"
+      }
+    ],
+    "status": "completed",
+    "exitCode": 0,
+    "input": {
+      "command": "/bin/zsh -lc 'pedelec-cli --thread-id 7ca511de-1477-4c13-951f-12c285a0eb3d tool-spec traceProbe'",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "output": {
+      "combinedStreams": true,
+      "output": "{\"ok\":true,\"result\":{\"argsSchema\":{\"additionalProperties\":false,\"properties\":{\"mode\":{\"enum\":[\"ok\",\"fail\"],\"type\":\"string\"}},\"required\":[\"mode\"],\"type\":\"object\"},\"callCommand\":\"pedelec-cli --thread-id 7ca511de-1477-4c13-951f-12c285a0eb3d tool-call traceProbe '<json_args>'\",\"description\":\"Scenario probe. mode ok succeeds, mode fail reports a tool failure.\",\"name\":\"traceProbe\",\"readSpecCommand\":\"pedelec-cli --thread-id 7ca511de-1477-4c13-951f-12c285a0eb3d tool-spec traceProbe\",\"schema\":{\"additionalProperties\":false,\"properties\":{\"mode\":{\"enum\":[\"ok\",\"fail\"],\"type\":\"string\"}},\"required\":[\"mode\"],\"type\":\"object\"}}}\n"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:56.806Z",
+    "kind": "started",
+    "source": "pedelec-host",
+    "toolCallId": "host:702cebb086c211d0346ebda75a70079e",
+    "turnId": "scenario",
+    "toolName": "traceProbe",
+    "toolKind": "host",
+    "sequence": 11,
+    "coverage": "supported",
+    "hostToolCallId": "970af385-c1e6-41ac-a641-4ce308d2bbd2",
+    "correlation": "unlinked",
+    "status": "running",
+    "input": {
+      "args": {
+        "mode": "ok"
+      }
+    }
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:56.806Z",
+    "kind": "updated",
+    "source": "pedelec-host",
+    "toolCallId": "host:702cebb086c211d0346ebda75a70079e",
+    "turnId": "scenario",
+    "toolName": "traceProbe",
+    "toolKind": "host",
+    "sequence": 12,
+    "coverage": "supported",
+    "hostToolCallId": "970af385-c1e6-41ac-a641-4ce308d2bbd2",
+    "correlation": "unlinked",
+    "status": "running",
+    "output": {
+      "handler": "returned",
+      "success": true,
+      "result": {
+        "probe": "ok"
+      }
+    }
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:56.806Z",
+    "kind": "finished",
+    "source": "pedelec-host",
+    "toolCallId": "host:702cebb086c211d0346ebda75a70079e",
+    "turnId": "scenario",
+    "toolName": "traceProbe",
+    "toolKind": "host",
+    "sequence": 13,
+    "coverage": "supported",
+    "hostToolCallId": "970af385-c1e6-41ac-a641-4ce308d2bbd2",
+    "correlation": "unlinked",
+    "status": "completed",
+    "output": {
+      "success": true,
+      "result": {
+        "probe": "ok"
+      },
+      "delivery": "cli-reply-written",
+      "providerAcknowledgement": "unavailable"
+    }
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:56.828Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:efb9d26d9a5bef1f37f187af3becd53c",
+    "turnId": "scenario",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 14,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-ad78bb05-cd54-4b5d-a8f0-36896855666f",
+    "hostInvocations": [
+      {
+        "subcommand": "tool-call",
+        "toolName": "traceProbe"
+      }
+    ],
+    "status": "running",
+    "input": {
+      "command": "/bin/zsh -lc \"pedelec-cli --thread-id 7ca511de-1477-4c13-951f-12c285a0eb3d tool-call traceProbe '{\\\"mode\\\":\\\"ok\\\"}'\"",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:56.829Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:efb9d26d9a5bef1f37f187af3becd53c",
+    "turnId": "scenario",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 15,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-ad78bb05-cd54-4b5d-a8f0-36896855666f",
+    "hostInvocations": [
+      {
+        "subcommand": "tool-call",
+        "toolName": "traceProbe"
+      }
+    ],
+    "status": "completed",
+    "exitCode": 0,
+    "input": {
+      "command": "/bin/zsh -lc \"pedelec-cli --thread-id 7ca511de-1477-4c13-951f-12c285a0eb3d tool-call traceProbe '{\\\"mode\\\":\\\"ok\\\"}'\"",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "output": {
+      "combinedStreams": true,
+      "output": "{\"ok\":true,\"result\":{\"probe\":\"ok\"}}\n"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:59.854Z",
+    "kind": "started",
+    "source": "pedelec-host",
+    "toolCallId": "host:5f71b87669ef7c17b15c460db7508605",
+    "turnId": "scenario",
+    "toolName": "traceProbe",
+    "toolKind": "host",
+    "sequence": 16,
+    "coverage": "supported",
+    "hostToolCallId": "52ccf2a0-2de4-4a6a-86d6-49bd693160cd",
+    "correlation": "unlinked",
+    "status": "running",
+    "input": {
+      "args": {
+        "mode": "fail"
+      }
+    }
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:59.855Z",
+    "kind": "updated",
+    "source": "pedelec-host",
+    "toolCallId": "host:5f71b87669ef7c17b15c460db7508605",
+    "turnId": "scenario",
+    "toolName": "traceProbe",
+    "toolKind": "host",
+    "sequence": 17,
+    "coverage": "supported",
+    "hostToolCallId": "52ccf2a0-2de4-4a6a-86d6-49bd693160cd",
+    "correlation": "unlinked",
+    "status": "running",
+    "output": {
+      "handler": "returned",
+      "success": false,
+      "result": {
+        "probe": "requested failure"
+      }
+    }
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:59.855Z",
+    "kind": "finished",
+    "source": "pedelec-host",
+    "toolCallId": "host:5f71b87669ef7c17b15c460db7508605",
+    "turnId": "scenario",
+    "toolName": "traceProbe",
+    "toolKind": "host",
+    "sequence": 18,
+    "coverage": "supported",
+    "hostToolCallId": "52ccf2a0-2de4-4a6a-86d6-49bd693160cd",
+    "correlation": "unlinked",
+    "status": "failed",
+    "output": {
+      "success": false,
+      "result": {
+        "probe": "requested failure"
+      },
+      "delivery": "cli-reply-written",
+      "providerAcknowledgement": "unavailable"
+    },
+    "errorCode": "TOOL_REPORTED_FAILURE"
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:59.878Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:645fa7c1f6e2027f09678904c8a30546",
+    "turnId": "scenario",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 19,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-abcc5975-d5c5-43ef-a5a0-848ee8b34f4f",
+    "hostInvocations": [
+      {
+        "subcommand": "tool-call",
+        "toolName": "traceProbe"
+      }
+    ],
+    "status": "running",
+    "input": {
+      "command": "/bin/zsh -lc \"pedelec-cli --thread-id 7ca511de-1477-4c13-951f-12c285a0eb3d tool-call traceProbe '{\\\"mode\\\":\\\"fail\\\"}'\"",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:32:59.879Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:645fa7c1f6e2027f09678904c8a30546",
+    "turnId": "scenario",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 20,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-abcc5975-d5c5-43ef-a5a0-848ee8b34f4f",
+    "hostInvocations": [
+      {
+        "subcommand": "tool-call",
+        "toolName": "traceProbe"
+      }
+    ],
+    "status": "completed",
+    "exitCode": 0,
+    "input": {
+      "command": "/bin/zsh -lc \"pedelec-cli --thread-id 7ca511de-1477-4c13-951f-12c285a0eb3d tool-call traceProbe '{\\\"mode\\\":\\\"fail\\\"}'\"",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "output": {
+      "combinedStreams": true,
+      "output": "{\"error\":{\"code\":\"TOOL_FAILED\",\"message\":\"TOOL_FAILED\"},\"ok\":false,\"result\":{\"probe\":\"requested failure\"}}\n"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:33:03.548Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:cf9f5417a7756bcdefcf154f01081184",
+    "turnId": "scenario",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 21,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-20c98c8c-7dfb-4ca2-9030-c71eb074cee3",
+    "status": "running",
+    "input": {
+      "command": "/bin/zsh -lc 'agent-browser --version'",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:33:03.548Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:cf9f5417a7756bcdefcf154f01081184",
+    "turnId": "scenario",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 22,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-20c98c8c-7dfb-4ca2-9030-c71eb074cee3",
+    "status": "failed",
+    "exitCode": 127,
+    "input": {
+      "command": "/bin/zsh -lc 'agent-browser --version'",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "output": {
+      "combinedStreams": true,
+      "output": "zsh:1: command not found: agent-browser\n"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "7ca511de-1477-4c13-951f-12c285a0eb3d",
+    "provider": "codex",
+    "at": "2026-11-09T06:33:11.741Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:99ef71e6c19ab103cf6bad282eb667c2",
+    "turnId": "cancel",
+    "toolName": "commandExecution",
+    "toolKind": "shell",
+    "sequence": 23,
+    "coverage": "supported",
+    "nativeToolCallId": "exec-2da276e9-2712-4259-95e0-c34489e4b403",
+    "status": "running",
+    "input": {
+      "command": "/bin/zsh -lc 'sleep 120'",
+      "cwd": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-4om0aT"
+    },
+    "unavailable": [
+      "stdout",
+      "stderr"
+    ]
+  }
+]

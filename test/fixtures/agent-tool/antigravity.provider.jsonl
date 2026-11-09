@@ -1,0 +1,8 @@
+{"direction":"client_to_provider","turn":"turn-1","message":{"event":"user","text":"run the scenario"}}
+{"direction":"provider_to_client","turn":"turn-1","message":{"event":"init","conversation_id":"agy-1"}}
+{"direction":"provider_to_client","turn":"turn-1","message":{"event":"step_update","step_type":"run_command","status":"running"}}
+{"direction":"provider_to_client","turn":"turn-1","message":{"event":"step_update","step_type":"run_command","status":"done"}}
+{"direction":"provider_to_client","turn":"turn-1","message":{"event":"step_update","step_type":"view_file"}}
+{"direction":"provider_to_client","turn":"turn-1","message":{"event":"step_update","step_type":"agent_response","text_delta":"DONE"}}
+{"direction":"provider_to_client","turn":"turn-1","message":{"event":"step_update","step_type":"bad label /Users/alice"}}
+{"direction":"provider_to_client","turn":"turn-1","message":{"event":"result","result":{"status":"SUCCESS","conversation_id":"agy-1","response":"DONE"}}}

@@ -1,0 +1,35 @@
+[workspace]
+resolver = "2"
+members = [
+  "crates/pedelec-shared",
+  "crates/pedelec-core",
+  "crates/pedelec-runtime",
+  "crates/pedelec-ipc-worker",
+  "crates/pedelec-agent",
+  "crates/pedelec-cli",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Isaac Lin"]
+license = "MIT"
+repository = "https://github.com/kaoruisaac/pedelec-node"
+
+[workspace.dependencies]
+base64 = "0.22"
+chrono = { version = "0.4", features = ["serde", "clock"] }
+dirs = "6"
+jsonschema = { version = "0.46.5", default-features = false }
+reqwest = { version = "0.13.4", default-features = false, features = ["blocking", "rustls", "json"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+zip = { version = "2.4", default-features = false, features = ["deflate"] }
+tempfile = "3"
+url = "2"
+uuid = { version = "1", features = ["v4", "v7", "std"] }
+pedelec-shared = { path = "crates/pedelec-shared" }
+pedelec-core = { path = "crates/pedelec-core" }
+pedelec-runtime = { path = "crates/pedelec-runtime" }
+

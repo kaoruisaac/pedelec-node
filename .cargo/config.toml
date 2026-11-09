@@ -1,0 +1,3 @@
+# Consumers must not need the Visual C++ redistributable: link the MSVC CRT statically.
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]

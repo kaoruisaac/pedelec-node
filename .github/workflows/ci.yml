@@ -1,0 +1,226 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  native:
+    name: native ${{ matrix.target }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { target: darwin-arm64, os: macos-latest, arch: arm64 }
+          - { target: win32-x64, os: windows-latest, arch: x64 }
+          - { target: linux-x64-gnu, os: ubuntu-22.04, arch: x64 }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24' }
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with: { workspaces: rust }
+      - name: Runner architecture
+        shell: bash
+        run: node -e "if (process.arch !== '${{ matrix.arch }}') { console.error('runner is ' + process.arch); process.exit(1) }"
+      - run: npm ci
+      - run: npm run check:boundary
+      - run: npm run typecheck
+      - name: Rust tests
+        run: cargo test --locked --manifest-path rust/Cargo.toml --workspace
+      - name: Release build
+        run: npm run build:rust
+      - name: Stage native bundle
+        run: node scripts/stage-native.mjs --profile release --target ${{ matrix.target }}
+      - name: Self-check (--version)
+        shell: bash
+        run: |
+          ext=""; [ "${{ matrix.target }}" = win32-x64 ] && ext=".exe"
+          for b in pedelec-ipc-worker pedelec-agent pedelec-cli; do "bin/${{ matrix.target }}/$b$ext" --version; done
+      - name: Linked libraries / glibc floor
+        if: matrix.target == 'linux-x64-gnu'
+        run: |
+          for b in bin/linux-x64-gnu/pedelec-*; do echo "== $b"; ldd "$b"; done
+          objdump -T bin/linux-x64-gnu/pedelec-* | grep -o 'GLIBC_[0-9.]*' | sort -uV | tail -1 | tee bin/linux-x64-gnu/glibc-floor.txt
+      - name: Linked libraries (macOS)
+        if: matrix.target == 'darwin-arm64'
+        run: for b in bin/darwin-arm64/pedelec-*; do otool -L "$b"; done
+      - name: Linked DLLs (Windows)
+        if: matrix.target == 'win32-x64'
+        shell: pwsh
+        run: |
+          $dumpbin = Get-ChildItem "${env:ProgramFiles}\Microsoft Visual Studio" -Recurse -Filter dumpbin.exe -ErrorAction SilentlyContinue | Where-Object { $_.FullName -match 'Hostx64\\x64' } | Select-Object -First 1
+          foreach ($b in Get-ChildItem bin/win32-x64/*.exe) { & $dumpbin.FullName /dependents $b.FullName }
+      - name: SDK tests (POSIX provider fixtures)
+        if: matrix.target != 'win32-x64'
+        run: |
+          npm run build:rust:dev
+          npx vitest run --config test/vitest.config.ts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-${{ matrix.target }}
+          path: bin/${{ matrix.target }}/
+          if-no-files-found: error
+
+  package:
+    needs: native
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24' }
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/download-artifact@v4
+        with: { pattern: native-*, path: artifacts }
+      - name: Assemble one bundle from this commit
+        run: |
+          for t in darwin-arm64 win32-x64 linux-x64-gnu; do mkdir -p bin/$t && cp -R artifacts/native-$t/. bin/$t/; done
+          chmod 755 bin/darwin-arm64/pedelec-* bin/linux-x64-gnu/pedelec-*
+          mv bin/linux-x64-gnu/glibc-floor.txt glibc-floor.txt
+          node scripts/write-manifest.mjs --require-all
+          cat bin/manifest.json
+      - run: npm ci
+      - run: npm run build
+      - name: License audit / third-party notices are current
+        run: node scripts/third-party-notices.mjs --check
+      - name: Secret scan (gitleaks)
+        run: |
+          curl -fsSL https://github.com/gitleaks/gitleaks/releases/download/v8.24.2/gitleaks_8.24.2_linux_x64.tar.gz | tar -xz gitleaks
+          ./gitleaks dir . --redact --no-banner -c .gitleaks.toml
+      - name: npm audit (runtime deps)
+        run: npm audit --omit=dev --audit-level=moderate
+      - run: npm pack --dry-run
+      - name: Pack one tarball
+        run: |
+          npm pack
+          node scripts/verify-package.mjs --tarball kaoruisaac-pedelec-node-*.tgz | tee pack-report.json
+          sha256sum kaoruisaac-pedelec-node-*.tgz | tee tarball.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: |
+            kaoruisaac-pedelec-node-*.tgz
+            tarball.sha256
+            pack-report.json
+            bin/manifest.json
+            glibc-floor.txt
+          if-no-files-found: error
+
+  consumer:
+    name: consumer ${{ matrix.os }}
+    needs: package
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/setup-node@v4
+        with: { node-version: '24' }
+      # Only the smoke files are checked out; the consumer never sees the source tree.
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: consumer-smoke, path: src-smoke }
+      - uses: actions/download-artifact@v4
+        with: { name: package, path: pkg }
+      - name: Install the tarball into a clean consumer (path with spaces)
+        shell: bash
+        run: |
+          dir="$RUNNER_TEMP/pedelec consumer"
+          mkdir -p "$dir"
+          cp src-smoke/consumer-smoke/smoke.mjs src-smoke/consumer-smoke/fake-codex.mjs "$dir/"
+          tgz="$(ls "$PWD"/pkg/kaoruisaac-pedelec-node-*.tgz)"
+          cd "$dir"
+          npm init -y > /dev/null
+          npm pkg set type=module
+          npm install --no-audit --no-fund "$tgz"
+          npm ls
+      - name: Smoke
+        shell: bash
+        run: |
+          cd "$RUNNER_TEMP/pedelec consumer"
+          node smoke.mjs --report "$GITHUB_WORKSPACE/consumer-${{ matrix.os }}.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: 'consumer-report-${{ matrix.os }}', path: 'consumer-*.json' }
+
+  docker-consumer:
+    name: docker ${{ matrix.base }}
+    needs: package
+    strategy:
+      fail-fast: false
+      matrix:
+        base: ['node:24-bookworm-slim', 'ubuntu:24.04']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { sparse-checkout: consumer-smoke, path: src-smoke }
+      - uses: actions/download-artifact@v4
+        with: { name: package, path: pkg }
+      - name: Build clean non-root consumer image
+        run: |
+          ctx="$RUNNER_TEMP/ctx"; mkdir -p "$ctx"
+          cp src-smoke/consumer-smoke/smoke.mjs src-smoke/consumer-smoke/fake-codex.mjs src-smoke/consumer-smoke/docker/Dockerfile "$ctx/"
+          cp pkg/kaoruisaac-pedelec-node-*.tgz "$ctx/package.tgz"
+          docker build --build-arg BASE=${{ matrix.base }} -t pedelec-consumer "$ctx"
+      - name: Smoke as non-root
+        run: |
+          mkdir -p out && chmod 777 out
+          docker run --rm -v "$PWD/out:/out" pedelec-consumer sh -c 'id && node smoke.mjs --report /out/report.json'
+          node -e "const r=require('./out/report.json'); if (r.uid === 0) { console.error('ran as root'); process.exit(1) }"
+          cp out/report.json "docker-$(echo '${{ matrix.base }}' | tr ':/' '--').json"
+      - name: Container SIGTERM (docker stop) closes the live session
+        run: |
+          docker run -d --name hold pedelec-consumer node smoke.mjs --hold
+          for i in $(seq 1 60); do docker logs hold 2>&1 | grep -q READY && break; sleep 1; done
+          docker logs hold
+          docker exec hold ps -eo pid,user,args
+          start=$(date +%s); docker stop -t 20 hold; end=$(date +%s)
+          docker logs hold
+          code=$(docker inspect hold --format '{{.State.ExitCode}}')
+          echo "exit=$code seconds=$((end-start))"
+          docker rm hold
+          test "$code" = 0
+          test $((end-start)) -lt 20
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: 'docker-report-${{ strategy.job-index }}', path: 'docker-*.json' }
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [package, consumer, docker-consumer]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '24', registry-url: 'https://registry.npmjs.org' }
+      - uses: actions/download-artifact@v4
+        with: { path: release, merge-multiple: true }
+      - name: Tag matches package version
+        run: |
+          v=$(node -p "require('./package.json').version")
+          test "v$v" = "${GITHUB_REF_NAME}"
+          ls release
+      - name: GitHub Release
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: |
+          gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file RELEASE_NOTES.md \
+            release/kaoruisaac-pedelec-node-*.tgz release/tarball.sha256 release/bin/manifest.json release/*.json
+      - name: npm publish (only when NPM_TOKEN is configured)
+        env: { NODE_AUTH_TOKEN: '${{ secrets.NPM_TOKEN }}' }
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then echo "NPM_TOKEN not configured; publish manually from the release tarball"; exit 0; fi
+          npm publish release/kaoruisaac-pedelec-node-*.tgz --access public --provenance

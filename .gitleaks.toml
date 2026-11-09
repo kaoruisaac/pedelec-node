@@ -1,0 +1,15 @@
+# Secret scanning for the public repository and the packed artifact.
+# The only allowlisted paths hold deliberately fake credentials that exercise Tool Trace truncation tests.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "fake secrets in trace fixtures; build outputs and dependencies"
+paths = [
+  '''^test/agent-tool-trace\.test\.ts$''',
+  '''^test/fixtures/agent-tool/codex\.(provider|worker)\.jsonl$''',
+  '''^evidence/.*\.patch$''',
+  '''(^|/)node_modules/''',
+  '''^rust/target/''',
+  '''^dist/''',
+]

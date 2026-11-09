@@ -1,0 +1,487 @@
+[
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:20.573Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:19c6120813402ca65b12065684c1b11e",
+    "turnId": "scenario",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 1,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_01RXT31BpLMRjaUeTCDD3y36",
+    "status": "running",
+    "input": {
+      "command": "echo trace-ok FAKE_TRACE_CANARY=sk-fake-canary-0000"
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:20.897Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:19c6120813402ca65b12065684c1b11e",
+    "turnId": "scenario",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 2,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_01RXT31BpLMRjaUeTCDD3y36",
+    "status": "completed",
+    "output": {
+      "interrupted": false,
+      "stderr": "",
+      "stdout": "trace-ok FAKE_TRACE_CANARY=sk-fake-canary-0000"
+    },
+    "unavailable": [
+      "exitCode"
+    ]
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:21.970Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:01a69bede90f986453afe778e48d3a78",
+    "turnId": "scenario",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 3,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_013uwv88p4aUMuEBfZth58YY",
+    "status": "running",
+    "input": {
+      "command": "ls /definitely-missing-pedelec-dir"
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:21.990Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:01a69bede90f986453afe778e48d3a78",
+    "turnId": "scenario",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 4,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_013uwv88p4aUMuEBfZth58YY",
+    "status": "failed",
+    "output": {
+      "content": "Exit code 1\nls: /definitely-missing-pedelec-dir: No such file or directory"
+    },
+    "errorCode": "PROVIDER_TOOL_ERROR",
+    "unavailable": [
+      "exitCode",
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:23.901Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:4eea175b35effaa508e5a97f298ee37f",
+    "turnId": "scenario",
+    "toolName": "Read",
+    "toolKind": "file",
+    "sequence": 5,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_01SysaM9xdTsx3vjFxa6rKeA",
+    "status": "running",
+    "input": {
+      "file_path": "/private/var/folders/fg/yjxw10fn3z919xd71vsj1zw80000gn/T/pedelec-trace-e2e-FzLL8d/note.txt"
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:23.915Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:4eea175b35effaa508e5a97f298ee37f",
+    "turnId": "scenario",
+    "toolName": "Read",
+    "toolKind": "file",
+    "sequence": 6,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_01SysaM9xdTsx3vjFxa6rKeA",
+    "status": "completed",
+    "output": {
+      "content": "1\thello from the trace scenario\n2\t"
+    },
+    "unavailable": [
+      "exitCode"
+    ]
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:27.143Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:09056976d79c6d7cba617d773ce54cb8",
+    "turnId": "scenario",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 7,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_01WVxVtbUh3YemeJrGSkj1re",
+    "hostInvocations": [
+      {
+        "subcommand": "tool-spec",
+        "toolName": "traceProbe"
+      }
+    ],
+    "status": "running",
+    "input": {
+      "command": "pedelec-cli --thread-id caa751a1-f498-4b57-847c-94e24b68f358 tool-spec traceProbe"
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:27.164Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:09056976d79c6d7cba617d773ce54cb8",
+    "turnId": "scenario",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 8,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_01WVxVtbUh3YemeJrGSkj1re",
+    "status": "completed",
+    "output": {
+      "interrupted": false,
+      "stderr": "",
+      "stdout": "{\"ok\":true,\"result\":{\"argsSchema\":{\"additionalProperties\":false,\"properties\":{\"mode\":{\"enum\":[\"ok\",\"fail\"],\"type\":\"string\"}},\"required\":[\"mode\"],\"type\":\"object\"},\"callCommand\":\"pedelec-cli --thread-id caa751a1-f498-4b57-847c-94e24b68f358 tool-call traceProbe '<json_args>'\",\"description\":\"Scenario probe. mode ok succeeds, mode fail reports a tool failure.\",\"name\":\"traceProbe\",\"readSpecCommand\":\"pedelec-cli --thread-id caa751a1-f498-4b57-847c-94e24b68f358 tool-spec traceProbe\",\"schema\":{\"additionalProperties\":false,\"properties\":{\"mode\":{\"enum\":[\"ok\",\"fail\"],\"type\":\"string\"}},\"required\":[\"mode\"],\"type\":\"object\"}}}"
+    },
+    "unavailable": [
+      "exitCode"
+    ]
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:28.672Z",
+    "kind": "started",
+    "source": "pedelec-host",
+    "toolCallId": "host:4a267c601f6ab1fd9aa45c5672b7cc79",
+    "turnId": "scenario",
+    "toolName": "traceProbe",
+    "toolKind": "host",
+    "sequence": 9,
+    "coverage": "supported",
+    "hostToolCallId": "1c360f80-9ef5-4872-be75-4711534b598b",
+    "correlation": "unlinked",
+    "status": "running",
+    "input": {
+      "args": {
+        "mode": "ok"
+      }
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:28.672Z",
+    "kind": "updated",
+    "source": "pedelec-host",
+    "toolCallId": "host:4a267c601f6ab1fd9aa45c5672b7cc79",
+    "turnId": "scenario",
+    "toolName": "traceProbe",
+    "toolKind": "host",
+    "sequence": 10,
+    "coverage": "supported",
+    "hostToolCallId": "1c360f80-9ef5-4872-be75-4711534b598b",
+    "correlation": "unlinked",
+    "status": "running",
+    "output": {
+      "handler": "returned",
+      "success": true,
+      "result": {
+        "probe": "ok"
+      }
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:28.672Z",
+    "kind": "finished",
+    "source": "pedelec-host",
+    "toolCallId": "host:4a267c601f6ab1fd9aa45c5672b7cc79",
+    "turnId": "scenario",
+    "toolName": "traceProbe",
+    "toolKind": "host",
+    "sequence": 11,
+    "coverage": "supported",
+    "hostToolCallId": "1c360f80-9ef5-4872-be75-4711534b598b",
+    "correlation": "unlinked",
+    "status": "completed",
+    "output": {
+      "success": true,
+      "result": {
+        "probe": "ok"
+      },
+      "delivery": "cli-reply-written",
+      "providerAcknowledgement": "unavailable"
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:28.657Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:cf251bc2dfdb9ce88c824a7f6719c0d4",
+    "turnId": "scenario",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 12,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_01TnoQF2oiV3nTRqQHq1sxY4",
+    "hostInvocations": [
+      {
+        "subcommand": "tool-call",
+        "toolName": "traceProbe"
+      }
+    ],
+    "status": "running",
+    "input": {
+      "command": "pedelec-cli --thread-id caa751a1-f498-4b57-847c-94e24b68f358 tool-call traceProbe '{\"mode\":\"ok\"}'"
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:28.677Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:cf251bc2dfdb9ce88c824a7f6719c0d4",
+    "turnId": "scenario",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 13,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_01TnoQF2oiV3nTRqQHq1sxY4",
+    "status": "completed",
+    "output": {
+      "interrupted": false,
+      "stderr": "",
+      "stdout": "{\"ok\":true,\"result\":{\"probe\":\"ok\"}}"
+    },
+    "unavailable": [
+      "exitCode"
+    ]
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:30.140Z",
+    "kind": "started",
+    "source": "pedelec-host",
+    "toolCallId": "host:0043c45841334df7a8509f83360e60b9",
+    "turnId": "scenario",
+    "toolName": "traceProbe",
+    "toolKind": "host",
+    "sequence": 14,
+    "coverage": "supported",
+    "hostToolCallId": "2bef7ea0-5efc-4831-b345-fca272821686",
+    "correlation": "unlinked",
+    "status": "running",
+    "input": {
+      "args": {
+        "mode": "fail"
+      }
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:30.140Z",
+    "kind": "updated",
+    "source": "pedelec-host",
+    "toolCallId": "host:0043c45841334df7a8509f83360e60b9",
+    "turnId": "scenario",
+    "toolName": "traceProbe",
+    "toolKind": "host",
+    "sequence": 15,
+    "coverage": "supported",
+    "hostToolCallId": "2bef7ea0-5efc-4831-b345-fca272821686",
+    "correlation": "unlinked",
+    "status": "running",
+    "output": {
+      "handler": "returned",
+      "success": false,
+      "result": {
+        "probe": "requested failure"
+      }
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:30.140Z",
+    "kind": "finished",
+    "source": "pedelec-host",
+    "toolCallId": "host:0043c45841334df7a8509f83360e60b9",
+    "turnId": "scenario",
+    "toolName": "traceProbe",
+    "toolKind": "host",
+    "sequence": 16,
+    "coverage": "supported",
+    "hostToolCallId": "2bef7ea0-5efc-4831-b345-fca272821686",
+    "correlation": "unlinked",
+    "status": "failed",
+    "output": {
+      "success": false,
+      "result": {
+        "probe": "requested failure"
+      },
+      "delivery": "cli-reply-written",
+      "providerAcknowledgement": "unavailable"
+    },
+    "errorCode": "TOOL_REPORTED_FAILURE"
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:30.128Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:6e947fa8bebf1edf3f162e138d740324",
+    "turnId": "scenario",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 17,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_017k9LzL8H2GJgMy5mNyzu6q",
+    "hostInvocations": [
+      {
+        "subcommand": "tool-call",
+        "toolName": "traceProbe"
+      }
+    ],
+    "status": "running",
+    "input": {
+      "command": "pedelec-cli --thread-id caa751a1-f498-4b57-847c-94e24b68f358 tool-call traceProbe '{\"mode\":\"fail\"}'"
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:30.143Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:6e947fa8bebf1edf3f162e138d740324",
+    "turnId": "scenario",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 18,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_017k9LzL8H2GJgMy5mNyzu6q",
+    "status": "completed",
+    "output": {
+      "interrupted": false,
+      "stderr": "",
+      "stdout": "{\"error\":{\"code\":\"TOOL_FAILED\",\"message\":\"TOOL_FAILED\"},\"ok\":false,\"result\":{\"probe\":\"requested failure\"}}"
+    },
+    "unavailable": [
+      "exitCode"
+    ]
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:31.221Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:351faf39c367a6c64ff6100e99e995ad",
+    "turnId": "scenario",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 19,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_01G378dNYpLvQRPVtCZxyprw",
+    "status": "running",
+    "input": {
+      "command": "agent-browser --version"
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:31.234Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:351faf39c367a6c64ff6100e99e995ad",
+    "turnId": "scenario",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 20,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_01G378dNYpLvQRPVtCZxyprw",
+    "status": "failed",
+    "output": {
+      "content": "Exit code 127\n(eval):1: command not found: agent-browser"
+    },
+    "errorCode": "PROVIDER_TOOL_ERROR",
+    "unavailable": [
+      "exitCode",
+      "stdout",
+      "stderr"
+    ]
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:38.014Z",
+    "kind": "started",
+    "source": "provider-native",
+    "toolCallId": "native:aefa32d87767ab8a17f4df123a4dc6ea",
+    "turnId": "cancel",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 21,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_01KsieGj1qPamXtnf1qiWccw",
+    "status": "running",
+    "input": {
+      "command": "sleep 120",
+      "timeout": 180000
+    }
+  },
+  {
+    "sessionId": "caa751a1-f498-4b57-847c-94e24b68f358",
+    "provider": "claude",
+    "at": "2026-11-09T06:34:38.018Z",
+    "kind": "finished",
+    "source": "provider-native",
+    "toolCallId": "native:aefa32d87767ab8a17f4df123a4dc6ea",
+    "turnId": "cancel",
+    "toolName": "Bash",
+    "toolKind": "shell",
+    "sequence": 22,
+    "coverage": "supported",
+    "nativeToolCallId": "toolu_01KsieGj1qPamXtnf1qiWccw",
+    "status": "failed",
+    "output": {
+      "content": "<tool_use_error>Blocked: standalone sleep 120. To wait for a condition, use Monitor with an until-loop (e.g. `until <check>; do sleep 2; done`). To wait for a command you started, use run_in_background: true. Do not chain shorter sleeps to work around this block.</tool_use_error>"
+    },
+    "errorCode": "PROVIDER_TOOL_ERROR",
+    "unavailable": [
+      "exitCode",
+      "stdout",
+      "stderr"
+    ]
+  }
+]

@@ -1,0 +1,120 @@
+{
+  "provider": "claude",
+  "model": "sonnet",
+  "providerVersion": "2.1.316",
+  "platform": "darwin-arm64",
+  "node": "v24.22.1",
+  "at": "2026-11-09T06:34:38.787Z",
+  "scenarioTerminal": "completed",
+  "eventCount": 22,
+  "gaps": [],
+  "scenarios": {
+    "1-native-shell": {
+      "verdict": "PASS",
+      "canaryVerbatim": true,
+      "echo": [
+        {
+          "status": "completed",
+          "exitCode": "unavailable",
+          "unavailable": [
+            "exitCode"
+          ],
+          "output": {
+            "interrupted": false,
+            "stderr": "",
+            "stdout": "trace-ok FAKE_TRACE_CANARY=sk-fake-canary-0000"
+          }
+        }
+      ],
+      "nonzero": [
+        {
+          "status": "failed",
+          "exitCode": "unavailable",
+          "unavailable": [
+            "exitCode",
+            "stdout",
+            "stderr"
+          ],
+          "output": {
+            "content": "Exit code 1\nls: /definitely-missing-pedelec-dir: No such file or directory"
+          }
+        }
+      ]
+    },
+    "2-native-non-shell": {
+      "verdict": "PASS",
+      "tools": [
+        "Read/file"
+      ]
+    },
+    "3-host-tool": {
+      "verdict": "PASS",
+      "handled": [
+        "ok",
+        "fail"
+      ],
+      "host": [
+        {
+          "status": "completed",
+          "correlation": "unlinked",
+          "parent": null,
+          "output": {
+            "success": true,
+            "result": {
+              "probe": "ok"
+            },
+            "delivery": "cli-reply-written",
+            "providerAcknowledgement": "unavailable"
+          }
+        },
+        {
+          "status": "failed",
+          "errorCode": "TOOL_REPORTED_FAILURE",
+          "correlation": "unlinked",
+          "parent": null,
+          "output": {
+            "success": false,
+            "result": {
+              "probe": "requested failure"
+            },
+            "delivery": "cli-reply-written",
+            "providerAcknowledgement": "unavailable"
+          }
+        }
+      ],
+      "nativeShellToolCalls": [],
+      "toolSpecSeen": true,
+      "hostEventsWithoutHandler": 0
+    },
+    "4-agent-browser-shell": {
+      "verdict": "PASS",
+      "calls": [
+        {
+          "status": "failed",
+          "exitCode": "unavailable",
+          "output": {
+            "content": "Exit code 127\n(eval):1: command not found: agent-browser"
+          }
+        }
+      ]
+    },
+    "5-cancel": {
+      "verdict": "PASS",
+      "terminal": "unknown",
+      "finished": [
+        {
+          "status": "failed",
+          "errorCode": "PROVIDER_TOOL_ERROR"
+        }
+      ],
+      "providerReportedFinish": true
+    },
+    "6-event-first": {
+      "verdict": "PASS",
+      "syntheticTerminals": 0,
+      "duplicateProviderFrames": 0,
+      "lateObservations": 0
+    }
+  },
+  "note": "Proposed verdicts only. Review trace.json and provider-rpc.jsonl; Provider fields that are absent must appear in `unavailable`."
+}
