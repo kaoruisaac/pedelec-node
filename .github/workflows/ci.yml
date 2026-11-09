@@ -260,4 +260,4 @@ jobs:
             printf '%s\n' "$existing" >&2
             exit 1
           fi
-          npm publish release/kaoruisaac-pedelec-node-*.tgz --access public --provenance
+          npm publish ./release/kaoruisaac-pedelec-node-*.tgz --access public --provenance
