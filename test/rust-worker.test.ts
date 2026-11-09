@@ -72,11 +72,29 @@ function fixture(env: Record<string, string> = {}) {
   const dir = realpathSync(mkdtempSync(join(tmpdir(), 'pedelec-node-sdk-')));
   dirs.push(dir);
   const module = join(dir, 'fake-codex.mjs');
-  const executable = join(dir, 'fake-codex.sh');
+  const windows = process.platform === 'win32';
+  const executable = join(dir, windows ? 'fake-codex.cmd' : 'fake-codex.sh');
   const log = join(dir, 'codex.jsonl');
   writeFileSync(module, providerSource);
-  writeFileSync(executable, `#!/bin/sh\nexec '${process.execPath}' '${module}'\n`, { mode: 0o755 });
-  return { dir, log, env: { ...process.env, PEDELEC_CODEX_PATH: executable, FAKE_CODEX_LOG: log, ACP_FIXTURE_LOG: join(dir, 'acp.jsonl'), ...env } };
+  if (windows) {
+    writeFileSync(executable, `@echo off\r\n"${process.execPath}" "${module}" %*\r\n`);
+  } else {
+    writeFileSync(executable, `#!/bin/sh\nexec '${process.execPath}' '${module}'\n`, { mode: 0o755 });
+  }
+  const providerEnv = { ...process.env, PEDELEC_CODEX_PATH: executable, FAKE_CODEX_LOG: log, ACP_FIXTURE_LOG: join(dir, 'acp.jsonl'), ...env };
+  if (windows) {
+    // Windows cannot launch the POSIX shebangs in the fake Claude/ACP fixtures.
+    // Wrap only explicitly provided test fixtures, preserving real-provider paths.
+    for (const key of ['PEDELEC_CLAUDE_PATH', 'PEDELEC_OPENCODE_PATH', 'PEDELEC_CURSOR_PATH'] as const) {
+      const target = providerEnv[key];
+      if (!target || !target.includes('pedelec-ipc-worker') || !target.includes('fixtures')) continue;
+      const wrapper = join(dir, `${key}.cmd`);
+      const interpreter = target.endsWith('.py') ? 'python -X utf8' : `"${process.execPath}"`;
+      writeFileSync(wrapper, `@echo off\r\n${interpreter} "${target}" %*\r\n`);
+      providerEnv[key] = wrapper;
+    }
+  }
+  return { dir, log, env: providerEnv };
 }
 
 async function runtimeFor(env: Record<string, string> = {}, sendTimeoutMs?: number, detailedMonitoring = false) {

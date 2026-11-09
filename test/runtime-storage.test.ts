@@ -206,7 +206,8 @@ it('B5 leaves an incomplete sweep retryable and refuses a replaced lock inode', 
   expect(readFileSync(join(outside, 'sentinel'), 'utf8')).toBe('keep');
   expect(existsSync(session.providerStateDirectory!)).toBe(true);
   await next.close();
-  rmSync(artifacts);
+  // Windows junctions are directory links: remove the link without following its target.
+  rmSync(artifacts, { recursive: true });
   renameSync(join(dir, 'moved-artifacts'), artifacts);
 
   const third = await client();

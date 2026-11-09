@@ -45,9 +45,16 @@ fn replay(provider: &str, trace: TraceProvider) -> Vec<Value> {
     if std::env::var("UPDATE_TOOL_TRACE_GOLDEN").as_deref() == Ok("1") || !golden.exists() {
         std::fs::write(&golden, &rendered).expect("write golden");
     } else {
+        // Compare JSONL records rather than platform-specific line endings.
+        // Keep both event values and their order under strict golden verification.
+        let expected: Vec<Value> = std::fs::read_to_string(&golden)
+            .expect("read golden")
+            .lines()
+            .map(|line| serde_json::from_str(line).expect("valid golden JSONL"))
+            .collect();
         assert_eq!(
-            std::fs::read_to_string(&golden).unwrap(),
-            rendered,
+            expected,
+            out,
             "{provider} worker golden drifted; rerun with UPDATE_TOOL_TRACE_GOLDEN=1 and review"
         );
     }

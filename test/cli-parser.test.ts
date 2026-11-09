@@ -35,8 +35,15 @@ it('CLI refuses hostile endpoint/DNS and symlink while allowing nonprivate Unix 
     await writeFile(file, JSON.stringify({ protocol: 'pedelec-core-ipc-v1', ...runtime }), { mode: 0o600 });
     expect((await cli(args, file)).error.code).toBe('IPC_UNAUTHORIZED');
   }
-  const link = join(dir, 'link.json'); await symlink(file, link);
-  expect((await cli(args, link)).error.code).toBe('IPC_UNAUTHORIZED');
+  const link = join(dir, 'link.json');
+  try {
+    await symlink(file, link);
+    expect((await cli(args, link)).error.code).toBe('IPC_UNAUTHORIZED');
+  } catch (error) {
+    // Standard Windows accounts cannot always create file symlinks without Developer Mode.
+    // Only omit this fixture assertion when the OS refused symlink creation itself.
+    if (process.platform !== 'win32' || (error as NodeJS.ErrnoException).code !== 'EPERM') throw error;
+  }
   // Local file mode is file hygiene, not process authorization. Valid discovery advances to connect.
   await writeFile(file, JSON.stringify({ protocol: 'pedelec-core-ipc-v1', host: '127.0.0.1',
     port: 1, endpoint: '127.0.0.1:1', generation: 'turn' }));
