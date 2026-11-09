@@ -1,11 +1,10 @@
 name: ci
 
+# The entire CI/release pipeline runs only when a version tag is pushed.
+# Branch pushes, pull requests, and manual dispatch do not trigger it.
 on:
   push:
-    branches: [main]
     tags: ['v*']
-  pull_request:
-  workflow_dispatch:
 
 permissions:
   contents: read
