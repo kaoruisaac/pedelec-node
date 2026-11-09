@@ -1069,11 +1069,15 @@ mod tests {
     #[cfg(windows)]
     fn fake_pedelec_cli(dir: &Path, capture: &Path) -> PathBuf {
         let path = dir.join("pedelec-cli.cmd");
+        // `more` rewrites stdin newlines on Windows (CRLF and a trailing blank line).
+        // Use a binary stream copy so the test verifies the exact bytes passed to the helper.
+        let stdin_path = capture.with_extension("stdin");
+        let escaped_stdin_path = stdin_path.to_string_lossy().replace('\'', "''");
         std::fs::write(
             &path,
             format!(
-                "@echo off\r\nmore > \"{}\"\r\necho %* > \"{}\"\r\necho {{\"ok\":true}}\r\n",
-                capture.with_extension("stdin").to_string_lossy(),
+                "@echo off\r\npowershell.exe -NoProfile -NonInteractive -Command \"$output = [System.IO.File]::Create('{}'); try {{ [Console]::OpenStandardInput().CopyTo($output) }} finally {{ $output.Dispose() }}\"\r\necho %* > \"{}\"\r\necho {{\"ok\":true}}\r\n",
+                escaped_stdin_path,
                 capture.to_string_lossy()
             ),
         )

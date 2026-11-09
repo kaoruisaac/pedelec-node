@@ -338,9 +338,14 @@ impl AntigravitySession {
             }
         };
         match outcome {
-            Ok(AntigravityStopOutcome::Stopped | AntigravityStopOutcome::AlreadyFinished) => Ok(
-                json!({"cancelled":true,"turnId":turn,"outcome":"unknown","sessionRetired":true}),
-            ),
+            Ok(AntigravityStopOutcome::Stopped | AntigravityStopOutcome::AlreadyFinished) => {
+                // A successful stop also retires this handle. Otherwise queued
+                // terminal frames may race with cancellation on Windows.
+                self.state.lock().map_err(|_| failure("INTERNAL"))?.retired = true;
+                Ok(
+                    json!({"cancelled":true,"turnId":turn,"outcome":"unknown","sessionRetired":true}),
+                )
+            }
             Ok(AntigravityStopOutcome::NotReady) | Err(_) => {
                 self.state.lock().map_err(|_| failure("INTERNAL"))?.retired = true;
                 self.controller.retire_after_failed_stop();
@@ -916,7 +921,7 @@ mod tests {
                 fs::write(
                     &path,
                     format!(
-                        "@echo off\r\npython \"{}\" \"{}\" %*\r\n",
+                        "@echo off\r\npython -X utf8 \"{}\" \"{}\" %*\r\n",
                         script.display(),
                         root.path().display()
                     ),
@@ -1075,7 +1080,8 @@ mod tests {
             description: "test".into(),
             args_schema: json!({"type":"object"}),
         }];
-        std::env::set_var(CLI_RUNTIME_FILE_ENV, "/private/session/runtime.json");
+        // Use a native absolute path on both Windows and POSIX runners.
+        std::env::set_var(CLI_RUNTIME_FILE_ENV, f.root.path().join("runtime.json"));
         assert!(validate_open(&p).is_ok());
         std::env::remove_var(CLI_RUNTIME_FILE_ENV);
         let (s, _) = f.open("").unwrap();

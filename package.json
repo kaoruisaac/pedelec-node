@@ -1,6 +1,6 @@
 {
   "name": "@kaoruisaac/pedelec-node",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Node/TypeScript SDK for the Pedelec agent runtime: one package with the Rust IPC worker, pedelec-agent and pedelec-cli for macOS arm64, Windows x64 and Linux x64 (glibc).",
   "license": "MIT",
   "author": "Isaac Lin",

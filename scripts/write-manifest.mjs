@@ -13,7 +13,12 @@ const targets = {};
 const missing = [];
 for (const [key, spec] of Object.entries(TARGETS)) {
   const dir = join(root, 'bin', key);
-  if (!existsSync(dir)) { missing.push(key); continue; }
+  // Syncthing may create an empty or partially synchronized target directory.
+  // Only complete target bundles enter the local manifest; --require-all remains strict.
+  if (!existsSync(dir) || BINARIES.some((name) => !existsSync(join(dir, `${name}${spec.exe}`)))) {
+    missing.push(key);
+    continue;
+  }
   const files = BINARIES.map((name) => {
     const fileName = `${name}${spec.exe}`;
     const data = readFileSync(join(dir, fileName));
