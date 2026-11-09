@@ -200,7 +200,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: '24', registry-url: 'https://registry.npmjs.org' }
+        with: { node-version: '24' }
+      - name: Ensure npm supports OIDC Trusted Publishing
+        run: |
+          npm install -g npm@^11.5.1
+          npm --version
       - uses: actions/download-artifact@v4
         with: { path: release, merge-multiple: true }
       - name: Validate release tag and synchronized versions
@@ -238,15 +242,10 @@ jobs:
             gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file RELEASE_NOTES.md \
               release/kaoruisaac-pedelec-node-*.tgz release/tarball.sha256 release/bin/manifest.json release/*.json
           fi
-      - name: Publish npm only for a new tagged version
+      - name: Publish npm via OIDC only for a new tagged version
         shell: bash
-        env: { NODE_AUTH_TOKEN: '${{ secrets.NPM_TOKEN }}' }
         run: |
           set -euo pipefail
-          if [ -z "$NODE_AUTH_TOKEN" ]; then
-            echo 'NPM_TOKEN is missing; tagged release cannot publish.' >&2
-            exit 1
-          fi
           spec=$(node -p 'const p=require("./package.json"); `${p.name}@${p.version}`')
           set +e
           existing=$(npm view "$spec" version 2>&1)
