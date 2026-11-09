@@ -32,6 +32,19 @@ npm run version 0.0.1
 
 Updates `package.json`, `package-lock.json`, `rust/Cargo.toml` (`workspace.package.version`) and the six local crate entries in `rust/Cargo.lock` together. Requires an explicit SemVer; does not commit, tag or publish. **Native binaries and `bin/manifest.json` are intentionally not changed**: after bumping, rebuild and restage all three native targets, regenerate `bin/manifest.json` and pass release verification before publishing. Git/Release/npm publishing is controlled from Windows (Syncthing links the Mac mini development workspace).
 
+### Tag-only release (same format as Pedelec)
+
+Only pushing a matching Git tag such as `v0.4.0` triggers the release job; ordinary `main` pushes, pull requests and manual CI dispatch never publish to npm. The tag must equal `v` + the SDK package version and match the Rust Workspace/lockfile versions. All three platform builds, clean consumers and Linux Docker checks must pass before releasing. The workflow skips an npm version that already exists and fails closed if npm credentials or registry verification are unavailable.
+
+From the **Windows** Git/release host, after reviewing and committing a version bump:
+
+```bash
+git tag v0.4.0
+git push origin v0.4.0
+```
+
+Replace `0.4.0` with the current synchronized version; **creating a local tag alone does not trigger CI**. Do not run `npm publish` manually for regular releases.
+
 ## Quick start
 
 ```ts

@@ -1,19 +1,35 @@
 {
   "name": "@kaoruisaac/pedelec-node",
-  "version": "0.1.0",
+  "version": "0.4.1",
   "description": "Node/TypeScript SDK for the Pedelec agent runtime: one package with the Rust IPC worker, pedelec-agent and pedelec-cli for macOS arm64, Windows x64 and Linux x64 (glibc).",
   "license": "MIT",
   "author": "Isaac Lin",
-  "repository": { "type": "git", "url": "git+https://github.com/kaoruisaac/pedelec-node.git" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaoruisaac/pedelec-node.git"
+  },
   "homepage": "https://github.com/kaoruisaac/pedelec-node#readme",
-  "bugs": { "url": "https://github.com/kaoruisaac/pedelec-node/issues" },
-  "keywords": ["agent", "codex", "claude", "opencode", "cursor", "sdk", "tool-trace"],
+  "bugs": {
+    "url": "https://github.com/kaoruisaac/pedelec-node/issues"
+  },
+  "keywords": [
+    "agent",
+    "codex",
+    "claude",
+    "opencode",
+    "cursor",
+    "sdk",
+    "tool-trace"
+  ],
   "private": false,
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -26,10 +42,21 @@
     "THIRD_PARTY_NOTICES.md",
     "README.md"
   ],
-  "os": ["darwin", "win32", "linux"],
-  "cpu": ["arm64", "x64"],
-  "engines": { "node": ">=24.22.1 <25" },
-  "publishConfig": { "access": "public" },
+  "os": [
+    "darwin",
+    "win32",
+    "linux"
+  ],
+  "cpu": [
+    "arm64",
+    "x64"
+  ],
+  "engines": {
+    "node": ">=24.22.1 <25"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "version": "node scripts/version.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json",
@@ -38,6 +65,7 @@
     "build:rust:dev": "cargo build --locked -p pedelec-ipc-worker -p pedelec-agent -p pedelec-cli --manifest-path rust/Cargo.toml",
     "stage:native": "node scripts/stage-native.mjs",
     "manifest": "node scripts/write-manifest.mjs",
+    "pretest": "npm run build:rust:dev && node scripts/stage-native.mjs --profile debug",
     "test": "vitest run --config test/vitest.config.ts",
     "test:rust": "cargo test --locked --manifest-path rust/Cargo.toml --workspace",
     "check:boundary": "node scripts/check-pedelec-sdk-boundary.mjs",
